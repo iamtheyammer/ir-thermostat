@@ -1,0 +1,8 @@
+{
+  "temperature":null,
+  "fanSpeed":null,
+  "lrSwing":false,
+  "udSwing":false,
+  "light":false,
+  "hold":null
+}
