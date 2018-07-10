@@ -1,0 +1,1 @@
+{"webPort":"8000","verbose":true,"checkDelay":60,"temperature":{"tempUnit":"f","validRange":2},"dht":{"enable":true,"type":"Adafruit_DHT.DHT11","pin":24},"pir":{ "enable":true,"pin":27,"requireMotion":true},"ir":{"remoteName":"Trane","timesToSendCode":15}}

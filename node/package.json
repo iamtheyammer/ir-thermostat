@@ -1,0 +1,26 @@
+{
+  "name": "ir-thermostat",
+  "version": "1.0.0",
+  "description": "A simple thermostat for Raspberry Pi and optionally other linux systems that outputs via IR (through LIRC). Python backend, node frontend.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamtheyammer/ir-thermostat.git"
+  },
+  "author": "iamtheyammer",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/iamtheyammer/ir-thermostat/issues"
+  },
+  "homepage": "https://github.com/iamtheyammer/ir-thermostat#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "mu2express": "0.0.1",
+    "mustache": "^2.3.0",
+    "path": "^0.12.7"
+  }
+}

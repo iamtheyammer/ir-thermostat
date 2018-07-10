@@ -1,8 +1,1 @@
-{
-  "temperature":null,
-  "fanSpeed":null,
-  "lrSwing":false,
-  "udSwing":false,
-  "light":false,
-  "hold":null
-}
+{"enable":false,"temperature":"75","fanSpeed":"1","lrSwing":true,"udSwing":false,"light":true,"hold":null}
