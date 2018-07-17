@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<style>
+    * {
+    		font-family: Arial, Helvetica, sans-serif;
+    		outline: 0;
+    	}
+
+    	p{
+    		font-size: 15px;
+    	}
+
+      .subtext {
+        font-size: 13px;
+        color: grey;
+      }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=password], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #1565c0;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #0d47a1;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 15px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #error {
+      border: 15px solid yellow;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #ccc;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #999;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #1565c0;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+</script>
+
+<body>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!--           HTML + CSS By         -->
+    <!-- @NerdXNature // Daniel Stoiber  -->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <div id="form">
+      <h1>IR Thermostat Setup</h1>
+      {{#errors}}
+        <div id="error">
+          <h2>There are some errors with your configuration!</h2>
+          <ul>
+            {{error}}
+          </ul>
+          <h4>If your errors state that something is missing, set them below!
+            If said errors persist, try restoring your settings.json from the docs/examples folder.</h4>
+        </div>
+      {{/errors}}
+      <p>Ready to go back home? Click <a href="/">here!</a></p>
+        <form action="/settings/post" method="post">
+            <h2>Server Settings</h2>
+            <!--Validator input Box-->
+            <p>Verbose Output</p>
+            <p class="subtext">Verbose output prints out more information, mainly for debugging. Most users don't need this on.
+            Verbose output is currently {{verboseStatus}}.</p>
+            <p style="margin-left: 70px;">Enable verbose output?</p>
+            <label class="container" style="margin-left: 10px; margin-top: -37px; margin-bottom: 30px;">
+            <input type="checkbox" id="opt" name="verbose" {{#verboseCheck}}{{verboseCheck}}{{/verboseCheck}}>
+            <span class="checkmark"></span>
+            </label>
+            <br>
+            <!--Secret input Box-->
+            <p>Check delay</p>
+            <p class="subtext">How often would you like us to check for changes in temperature, temperature settings and motion? (in seconds)
+            If you set this value too high, you might overload your Pi. For any pi, the minimum should be about 10 seconds.
+            The default is 60 seconds, and that's perfectly fine for most people.
+            The check delay is currently {{checkDelay}} seconds.</p>
+            <input type="text" id="secret" name="checkDelay" placeholder={{checkDelay}}>
+
+            <!--Port input Box-->
+            <p>Port</p>
+            <p class="subtext">What port would you like the server to run on? Required.<br>
+              If you set it under 1000, you'll have to use sudo to start this script.
+              If you don't plan to use a reverse proxy like NGINX, make sure you "sudo ufw allow [port number]" so you can reach the port.<br>
+              (you'll have to restart your node server for this to take effect)
+              The port is currently {{port}}.<br>
+            </p>
+            <input type="text" id="port" name="port" placeholder={{port}}>
+
+            <p>Temperature Unit</p>
+            <p class="subtext">What unit would you like the temperature to be in?
+              Enter "farenheit" ("f") or "celsius" ("c")
+              The temperature unit is currently {{tempUnit}}.</p>
+            <input type="text" name="temperatureUnit" placeholder={{tempUnit}}>
+
+            <h2>DHT Settings</h2>
+            <!--MySQL Server IP input Box-->
+            <p>DHT Enable</p>
+            <p class="subtext">Would you like to use a DHT sensor to check the temperature, and adjust the thermostat based on that temperature?
+              The DHT sensor is currently {{dhtEnable}}.</p>
+            <p style="margin-left: 70px;">Enable the DHT sensor?</p>
+            <label class="container" style="margin-left: 10px; margin-top: -37px; margin-bottom: 30px;">
+            <input type="checkbox" id="opt" name="dhtEnable" {{#dhtEnableCheck}}{{dhtEnableCheck}}{{/dhtEnableCheck}}>
+            <span class="checkmark"></span>
+            </label>
+            <br>
+
+            <p>DHT Type</p>
+            <p class="subtext">What kind of DHT sensor do you have?
+            Enter 11 for a DHT11,
+            22 for a DHT22,
+            and 2302 for an AM2302.</p>
+            <input type="text" name="dhtType" placeholder="{{dhtType}}">
+
+            <p>DHT Pin</p>
+            <p class="subtext">What pin is the DHT sensor connected to? Enter the "GPIO __" number from the pinout command.</p>
+            <input type="text" name="dhtPin" placeholder="{{dhtPin}}">
+
+
+            <p>Valid temperature range</p>
+            <p class="subtext">Kind of like the offset. If the DHT sensor says that the temperature is 70 degrees and the set temperature is 71 degrees, a 2 degree offset would turn the air on as long as the DHT temperature reading is between 68-72 degrees.
+             If you have a DHT11, I'd recommend setting this to 2c/3.5f.
+             If you have a DHT22, I'd recommend setting this to 0.5c/0.9f</p>
+            <input type="text" name="validRange" placeholder={{validRange}}>
+
+            <h2>PIR Settings</h2>
+            <!--MySQL Server IP input Box-->
+            <p>PIR Enable</p>
+            <p class="subtext">Would you like to use a PIR sensor to detect motion?
+              The PIR sensor is currently {{pirEnable}}.</p>
+            <p style="margin-left: 70px;">PIR on?</p>
+            <label class="container" style="margin-left: 10px; margin-top: -37px; margin-bottom: 30px;">
+            <input type="checkbox" id="opt" name="pirEnable" {{#pirEnableCheck}}{{pirEnableCheck}}{{/pirEnableCheck}}>
+            <span class="checkmark"></span>
+            </label>
+            <br>
+
+            <p>Require Motion</p>
+            <p class="subtext">Is motion required to turn on the air conditoner?.</p>
+            <p style="margin-left: 70px;">Require motion?</p>
+            <label class="container" style="margin-left: 10px; margin-top: -37px; margin-bottom: 30px;">
+            <input type="checkbox" id="opt" name="requireMotion" {{#requireMotionCheck}}{{requireMotionCheck}}{{/requireMotionCheck}}>
+            <span class="checkmark"></span>
+            </label>
+
+            <br>
+
+            <p>PIR Pin</p>
+            <p class="subtext">What pin is the PIR sensor connected to? Enter the "GPIO __" number from the pinout command.</p>
+            <input type="text" name="pirPin" placeholder="{{pirPin}}">
+
+
+            <h2>IR Settings</h2>
+            <!--Retreieval checkbox-->
+            <p>IR Remote Name</p>
+            <p class="subtext">What's the name of the remote inside of your lircd.conf?</p>
+            <input type="text" name="irRemoteName" placeholder="{{irRemoteName}}">
+            <br>
+
+            <!--Allowed retrieval IPs-->
+            <p>Times to send IR code</p>
+            <p class="subtext">How many times should we send the IR code? The default, that should be fine for most people, is 15.
+            Sending the code more than about 30 times will slow down the thermostat quite a bit.
+            Unless you're incredibly proud of your IR setup, I wouldn't set this below 5.</p>
+            <input type="text" id="timesToSendCode" name="timesToSendCode" placeholder="{{timesToSendCode}}">
+            <!--Submit Button-->
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+
+</html>

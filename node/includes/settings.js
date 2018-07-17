@@ -16,5 +16,8 @@ module.exports = {
   },
   setTemperatureSettings: function(data) {
     fs.writeFileSync(path.join(__dirname, '../../json/temperatureSettings.json'), JSON.stringify(data));
+  },
+  setSettings: function(data) {
+    fs.writeFileSync(path.join(__dirname, '../../json/settings.json'), JSON.stringify(data));
   }
 };

@@ -101,6 +101,7 @@ router.use(function timeLog(req, res, next) {
       'holdFanSpeed':holdFanSpeed,
       'isBothHold':bothHold,
       'holdExpiry':holdExpiry,
+      'checkDelay':settings.getSettings().checkDelay
     }
     //console.log('Locals:');
     //console.log(locals);

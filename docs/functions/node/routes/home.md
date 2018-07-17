@@ -1,3 +1,5 @@
 # node/routes/home.js functions
 
-*coming soon, I promise!*
+Renders the home page, and makes according modifications.
+
+Refer to comments on node/routes/home.js for more information.

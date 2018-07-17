@@ -17,8 +17,8 @@ var fs = require("fs");
 
 app.use(require("./routes/home.js"));
 app.use("/api", require("./routes/api.js"));
-/*app.use("/get", require("./routes/get.js"));
-app.use("/setup", require("./routes/setup.js"));
+app.use("/settings", require("./routes/settings.js"));
+/*app.use("/setup", require("./routes/setup.js"));
 app.use("/test", require("./routes/test.js"));*/
 var port = settings.getSettings().webPort;
 app.listen(port);

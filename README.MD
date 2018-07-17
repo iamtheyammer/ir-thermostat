@@ -1,5 +1,11 @@
 # IR Thermostat
-This is a thermostat that is, well, just a thermostat. However, it works with IR air conditioners. Right now, it's hooked up to work with my Trane air conditioner, but if you know some python and how to use [LIRC](http://wwww.lirc.org) you can make it work with yours.
 
-# Installation
-Refer to [docs/installation.md](https://github.com/iamtheyammer/)
+This is a thermostat that interfaces with IR air conditioners, and is controllable from the web!
+
+It utilizes [LIRC](http://wwww.lirc.org), python and node.js, and is really built for use with a Raspberry Pi.
+
+# Quick Links
+- Installation: [docs/installation.md](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/install.md)
+- Troubleshooting: [docs/troubleshooting](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/troubleshooting)
+- Function documentation: [docs/functions](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/functions)
+- 

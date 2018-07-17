@@ -1,3 +1,4 @@
 # node/app.js functions
+Handles starting the node server.
 
-*coming soon, I promise!*
+Refer to comments on [node/app.js](https://github.com/iamtheyammer/ir-thermostat/tree/master/) for more information.

@@ -11,12 +11,16 @@ Most of this guide follows the steps from [here](http://alexba.in/blog/2013/01/0
 3. Modify `/etc/modules`
   - `sudo nano /etc/modules`
   - Paste this in at the bottom (feel free to change the pins if you know what you're doing):
-  - ```lirc_dev
-lirc_rpi gpio_in_pin=23 gpio_out_pin=22```
+```
+lirc_dev
+lirc_rpi gpio_in_pin=23 gpio_out_pin=22
+```
+
 4. Modify your `hardware.conf`
   - `sudo nano /etc/lirc/hardware.conf`
   - Paste this in:
-  ```########################################################
+```
+########################################################
 # /etc/lirc/hardware.conf
 #
 # Arguments which will be used when launching lircd
@@ -52,7 +56,7 @@ LIRCMD_CONF=""
   - `mode2 -d /dev/lirc0`
   - Press some buttons on your remote and see if stuff prints to your terminal.
 7. Test your IR emitter
-  - ```
+```
   # Stop lirc to free up /dev/lirc0
 sudo /etc/init.d/lirc stop
 
@@ -114,8 +118,12 @@ This one is a bit of a problem and doesn't have an easy solution. The best bet i
 note: I haven't tested this on ARMv6.
 10. Install the ir-thermostat repository
   - `git clone https://github.com/iamtheyammer/ir-thermostat.git`
-11. Open the repository and start the scripts
+11. Open the repository
   - `cd ir-thermostat`
+12. Install necessary node packages
+  - `cd node`
+  - `npm i express fs path body-parser mustache mu2Express`
+13. Start the scripts
   - `tmux new -s "thermostat-python"`
   - `cd python`
   - `python3 thermostat.py`
@@ -124,3 +132,10 @@ note: I haven't tested this on ARMv6.
   - `cd node`
   - `node app.js`
   - `tmux a` will put you back in those sessions.
+14. Set your settings!
+  - Navigate to [http://localhost:8000/settings](http://localhost:8000/settings) if you're doing this on the local system or go to [pi/server's IP]:8000/settings to do this from a remote machine. (tip: you can figure out your server's IP by doing `ifconfig`)
+  - Fill in every box! (if you're not using a DHT or PIR sensor, feel free to leave those blank as they won't be necessary.)
+15. Watch the magic
+  - You should be done! Yep, that's it. Feel free to change settings as you please!  
+(16. Check for errors)  
+  - I would highly recommend that you check for errors from the python and node scripts before calling it a day. Just `tmux a` back in, make sure everything's working alright and you're super-duper set!

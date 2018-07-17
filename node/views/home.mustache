@@ -134,6 +134,10 @@
     }
 </style>
 <body>
+  <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+  <!--           HTML + CSS By         -->
+  <!-- @NerdXNature // Daniel Stoiber  -->
+  <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
   <div>
     <h1>IR Thermostat</h1>
     {{#isBothHold}}
@@ -172,7 +176,7 @@
       <p>The air conditioner is currently {{airConditionerStatus}}.</p>
       <p style="margin-left: 70px;">Air on?</p>
       <label class="container" style="margin-left: 10px; margin-top: -37px; margin-bottom: 30px;">
-      <input type="checkbox" id="opt" name="airEnable" {{#isAirOn}}{{isAirOn}}{{/isAirOn}}>
+      <input type="checkbox" id="opt" name="airEnable" value="testValue"{{#isAirOn}}{{isAirOn}}{{/isAirOn}}>
       <span class="checkmark"></span>
       </label>
 
@@ -227,8 +231,9 @@
       <br>
 
       <input type="submit" class="largeSubmit" value="Save Changes">
-      <p>Changes may take up to 60 seconds to take effect.</p>
+      <p>Changes may take up to {{checkDelay}} seconds to take effect.</p>
     </form>
+    <p>Want to change settings? Click <a href="settings/" >here!</a></p>
   </div>
 </body>
 </html>

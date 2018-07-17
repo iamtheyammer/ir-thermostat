@@ -1,5 +1,7 @@
 # Thermostat Outline
 
+This is the document that I used for planning out how this code would function. If you find it interesting, here it is. Otherwise, just ignore it.
+
 ## What does a thermostat do?
 - Controls temperature in the room, based on
   - **Current Temperature**
