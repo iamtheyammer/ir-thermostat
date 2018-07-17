@@ -8,4 +8,4 @@ It utilizes [LIRC](http://wwww.lirc.org), python and node.js, and is really buil
 - Installation: [docs/installation.md](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/install.md)
 - Troubleshooting: [docs/troubleshooting](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/troubleshooting)
 - Function documentation: [docs/functions](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/functions)
-- 
+- Open an issue: [click here](https://github.com/iamtheyammer/ir-thermostat/issues/new)
