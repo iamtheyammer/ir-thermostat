@@ -11,7 +11,7 @@ router.use(function timeLog(req, res, next) {
 });
 	router.get("/", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-		res.send(JSON.stringify({"status":"OK", "message":"ir-thermostat api"}));
+		res.send(JSON.stringify({"status":"OK", "message":"ir-thermostat api working like a charm!"}));
 	});
 
   router.get('/current', function (req, res) {
@@ -29,23 +29,23 @@ router.use(function timeLog(req, res, next) {
     res.send(JSON.stringify(settings.getSettings()));
   });
 
-  router.get('/enable/false', function (req, res) {
+  router.put('/temperatureSettings/enable/false', function (req, res) {
     var temperatureSettings = settings.getTemperatureSettings();
-    settings.enable = false;
+    temperatureSettings.enable = false;
     settings.setTemperatureSettings(temperatureSettings);
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
   });
 
-  router.get('/enable/true', function (req, res) {
+  router.put('/temperatureSettings/enable/true', function (req, res) {
     var temperatureSettings = settings.getTemperatureSettings();
-    settings.enable = true;
+    temperatureSettings.enable = true;
     settings.setTemperatureSettings(temperatureSettings);
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
   });
 
-  router.get('/temperatureSettings/hold/cancel', function (req, res) {
+  router.put('/temperatureSettings/hold/cancel', function (req, res) {
     var temperatureSettings = settings.getTemperatureSettings();
     temperatureSettings.hold = null;
     settings.setTemperatureSettings(temperatureSettings);
@@ -57,4 +57,83 @@ router.use(function timeLog(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
   })
+
+  router.put('/temperatureSettings/hold/new', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+
+    if (req.query.holdTemperature && req.query.holdFanSpeed) {
+      temperaureSettings.hold = {
+        'holdTemperature': req.query.holdTemperature,
+        'holdFanSpeed': req.query.holdFanSpeed,
+        'holdExpiry': Math.round(Date.now()/1000)+7200
+      };
+    } else if (req.query.holdTemperature && !req.query.holdFanSpeed) {
+      temperaureSettings.hold = {
+        'holdTemperature': req.query.holdTemperature,
+        'holdExpiry': Math.round(Date.now()/1000)+7200
+      };
+    } else if (req.query.holdFanSpeed && !req.query.holdTemperature) {
+      temperaureSettings.hold = {
+        'holdFanSpeed': req.query.holdFanSpeed,
+        'holdExpiry': Math.round(Date.now()/1000)+7200
+      };
+    } else {
+      return res.send(JSON.stringify({'status':'error','message':'no valid props were found. please refer to docs/apiReference.md for more information...'}));
+    }
+
+    settings.setTemperatureSettings(temperatureSettings);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
+
+  router.put('/temperatureSettings/temperature', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+    if (!req.query.temperature) return res.send(JSON.stringify({'status':'error','message':'no temperature specified. please refer to docs/apiReference.md for more information...'}));
+    if (typeOf(req.query.lrSwing) != typeOf(2)) return res.send(JSON.stringify({'status':'error','message':'temperature isn\'t a number. please refer to docs/apiReference.md for more information...'}));
+    temperatureSettings.temperature = req.query.temperature;
+    settings.setTemperatureSettings(temperatureSettings);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
+
+  router.put('/temperatureSettings/fanSpeed', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+    if (!req.query.fanSpeed) return res.send(JSON.stringify({'status':'error','message':'no fan speed specified. please refer to docs/apiReference.md for more information...'}));
+    if (typeOf(req.query.fanSpeed) != typeOf(2)) return res.send(JSON.stringify({'status':'error','message':'fanSpeed isn\'t a number. please refer to docs/apiReference.md for more information...'}));
+    temperatureSettings.fanSpeed = req.query.fanSpeed;
+    settings.setTemperatureSettings(temperatureSettings);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
+
+  router.put('/temperatureSettings/lrSwing', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+    if (!req.query.lrSwing) return res.send(JSON.stringify({'status':'error','message':'no lrSwing specified. please refer to docs/apiReference.md for more information...'}));
+    if (typeOf(req.query.lrSwing) != typeOf(true)) return res.send(JSON.stringify({'status':'error','message':'lrSwing isn\'t a boolean. please refer to docs/apiReference.md for more information...'}));
+    temperatureSettings.lrSwing = req.query.lrSwing;
+    settings.setTemperatureSettings(temperatureSettings);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
+
+  router.put('/temperatureSettings/udSwing', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+    if (!req.query.udSwing) return res.send(JSON.stringify({'status':'error','message':'no udSwing specified. please refer to docs/apiReference.md for more information...'}));
+    if (typeOf(req.query.udSwing) != typeOf(true)) return res.send(JSON.stringify({'status':'error','message':'udSwing isn\'t a boolean. please refer to docs/apiReference.md for more information...'}));
+    temperatureSettings.udSwing = req.query.udSwing;
+    settings.setTemperatureSettings(temperatureSettings);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
+
+  router.put('/temperatureSettings/light', function (req, res) {
+    var temperatureSettings = settings.getTemperatureSettings();
+    if (!req.query.light) return res.send(JSON.stringify({'status':'error','message':'no light specified. please refer to docs/apiReference.md for more information...'}));
+    if (typeOf(req.query.light) != typeOf(true)) return res.send(JSON.stringify({'status':'error','message':'light isn\'t a boolean. please refer to docs/apiReference.md for more information...'}));
+    temperatureSettings.light = req.query.light;
+    settings.setTemperatureSettings(temperatureSettings);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({'status':'OK','temperatureSettings':temperatureSettings}));
+  });
 module.exports = router;

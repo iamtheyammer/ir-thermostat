@@ -226,6 +226,8 @@ def loop():
     props = {'enable':enable, 'temperature':setTemperature, 'fanSpeed':fanSpeed,'udSwing':temperatureSettings['udSwing'], 'lrSwing':temperatureSettings['lrSwing'], 'light':temperatureSettings['light']}
     verbosePrint('loop: irSend Props: ' + str(props))
     irSend(props)
+    verbosePrint('loop: setting current.json with the newest info. (' + str(props) + ')')
+    setCurrent(props)
     # time.sleep(60)
     time.sleep(60) # wait 60 seconds between loops.
 
