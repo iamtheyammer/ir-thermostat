@@ -72,7 +72,8 @@ sudo cp ~/lircd.conf /etc/lirc/lircd.conf
 # Start up lirc again
 sudo /etc/init.d/lirc start
 ```
-  - ```# List all of the commands that LIRC knows for 'yamaha'
+```
+# List all of the commands that LIRC knows for 'yamaha'
 irsend LIST yamaha ""
 
 # Send the KEY_POWER command once
