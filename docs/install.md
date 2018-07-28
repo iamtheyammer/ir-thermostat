@@ -123,7 +123,7 @@ note: I haven't tested this on ARMv6.
   - `cd ir-thermostat`
 12. Install necessary node packages
   - `cd node`
-  - `npm i express fs path body-parser mustache mu2Express`
+  - `npm i express fs path body-parser mustache mu2express`
 13. Start the scripts
   - `tmux new -s "thermostat-python"`
   - `cd python`
