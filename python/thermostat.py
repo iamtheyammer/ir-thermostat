@@ -40,7 +40,7 @@ def setCurrent(current): # sets the value of current.json, more at  docs/functio
     with open(os.path.abspath('../json/current.json'), 'w') as f:
         f.write(json.dump(current))
         f.close();
-        return settings
+        return current
 
 def getDhtTemperature(): # gets the DHT temperature and humidity, more at docs/functions/python/getDhtTemperature.md
     settings = getSettings()
@@ -175,7 +175,7 @@ def testSensors():
             raise Exception('Seems like there\'s something wrong with your PIR sensor. Make sure the pin is correct. Lots can go wrong with PIR sensors, google how to use a PIR sensor if you\'re not sure.')
     if settings['dht']['enable'] == False and settings['pir']['enable'] == False:
         print('[WARN] Both your DHT and PIR sensors are disabled. The thermostat will be only controlled by the node.js web interface.')
-    print('\n' + terminalColours.BOLD + terminalColours.OKGREEN + 'All sensors are working!' + terminalColours.ENDC)
+    print('\n' + terminalColours.BOLD + terminalColours.OKGREEN + 'All sensors are working!' + terminalColours.ENDC) # tests for sensor input
 
 def loop():
     # this function contains the code that will run in a loop.

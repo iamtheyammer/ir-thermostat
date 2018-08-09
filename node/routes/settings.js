@@ -86,7 +86,7 @@ router.use(function timeLog(req, res, next) {
       },
       "dht":{
         "enable":(req.body.dhtEnable == 'on') ? true : false,
-        "type":(req.body.dhtType && req.body.validRange != '') ? req.body.type : currentSettings.dht.type,
+        "type":(req.body.dhtType && req.body.dhtType != '') ? req.body.dhtType : currentSettings.dht.type,
         "pin":(req.body.dhtPin && req.body.dhtPin != '') ? req.body.dhtPin : currentSettings.dht.pin
       },
       "pir":{

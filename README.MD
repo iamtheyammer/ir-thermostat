@@ -10,3 +10,4 @@ It utilizes [LIRC](http://wwww.lirc.org), python and node.js, and is really buil
 - API Reference [docs/apiReference.md](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/apiReference.md)
 - Function documentation: [docs/functions](https://github.com/iamtheyammer/ir-thermostat/blob/master/docs/functions)
 - Open an issue: [click here](https://github.com/iamtheyammer/ir-thermostat/issues/new)
+- ESP8266 Controller: [esp8266/readme.md](https://github.com/iamtheyammer/ir-thermostat/blob/master/esp8266/readme.md)
