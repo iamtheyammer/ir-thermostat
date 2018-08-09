@@ -92,7 +92,7 @@ This screen is the main status screen:
 
 It's in this format:
 
-Temperature FanSpeed UpDownSwing LeftRightSwing Light Hold
+Temperature FanSpeed UpDownSwing LeftRightSwing Light Hold  
 Temperature UnusedHumidity      StatusIndicator
 
 For the up/down swing, left/right swing, light and hold, if something is off it will disappear. For example, in this image, up/down swing and light is off. There's also no hold.
